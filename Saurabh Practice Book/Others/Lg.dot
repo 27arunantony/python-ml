@@ -1,0 +1,8 @@
+digraph structs {
+node [shape=record]; 
+rankdir=LR;
+logs--nolio_action_exe;
+logs--nolio_dm_all;
+nolio_action_exe [label="{nolio_action_exe|{1|datetime}|{2|datetime}|{3|datetime}|{4|datetime}|{5|datetime}|{6|datetime}|{7|datetime}|{8|datetime}|{9|datetime}|{10|datetime}}"];
+nolio_dm_all [label="{nolio_action_exe|{1|datetime}|{2|datetime}|{3|datetime}|{4|datetime}|{5|datetime}|{6|datetime}|{7|datetime}|{8|datetime}|{9|datetime}|{10|datetime}}"];
+}

@@ -1,0 +1,1916 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Data Science Revision Book E2E}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{python}{%
+\section{Python }\label{python}}
+
+\hypertarget{important-topics-overview}{%
+\subsection{Important topics overview}\label{important-topics-overview}}
+
+    \hypertarget{enumerate}{%
+\subparagraph{enumerate}\label{enumerate}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n}{lst}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{element} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{lst}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{element}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0  :  1
+1  :  2
+2  :  3
+3  :  4
+4  :  5
+
+    \end{Verbatim}
+
+    \hypertarget{list-expression}{%
+\paragraph{List expression}\label{list-expression}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{c+c1}{\PYZsh{} a simple way of iterating over the list}
+          \PY{c+c1}{\PYZsh{} default way}
+          
+          \PY{n}{result}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{lst}\PY{p}{:}
+              \PY{n}{result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{)} \PY{c+c1}{\PYZsh{} [1, 4, 9, 16, 25]}
+          \PY{c+c1}{\PYZsh{} List Expression}
+          \PY{n}{result}\PY{o}{=}\PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{lst}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 4, 9, 16, 25]
+[1, 4, 9, 16, 25]
+
+    \end{Verbatim}
+
+    \hypertarget{lambda}{%
+\paragraph{Lambda}\label{lambda}}
+
+\emph{an anonymous funciton}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{n}{ls}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}
+          \PY{n}{ls1}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{p}{,} \PY{n}{ls}\PY{p}{,}\PY{n}{ls1} \PY{c+c1}{\PYZsh{} (\PYZlt{}function \PYZus{}\PYZus{}main\PYZus{}\PYZus{}.\PYZlt{}lambda\PYZgt{}(x, y)\PYZgt{}, [1, 2, 3, 4], [4, 3, 2, 1])}
+          \PY{n}{fx}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}
+          \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{fx}\PY{p}{,}\PY{n}{ls}\PY{p}{,}\PY{n}{ls1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}243}]:} [5, 5, 5, 5]
+\end{Verbatim}
+            
+    \hypertarget{map}{%
+\paragraph{map}\label{map}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{greater}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{[}\PY{n}{x}\PY{o}{\PYZlt{}}\PY{n}{y}\PY{p}{]}
+          
+          \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{greater}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}244}]:} 9
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{c+c1}{\PYZsh{}count words starting with S using map}
+          \PY{n}{word\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Jose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{San Francisco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Santa Fe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Houston}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{letterwithS}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{n}{count}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{letterwithS}\PY{p}{,}\PY{n}{word\PYZus{}list}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZgt{} gives you a boolean list based on condition}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[True, True, True, False]
+
+    \end{Verbatim}
+
+    \hypertarget{reduce}{%
+\paragraph{reduce}\label{reduce}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{c+c1}{\PYZsh{}it helps to do complex check on iterables reducing size. It keeps chaining last run result}
+          \PY{k+kn}{from} \PY{n+nn}{functools} \PY{k}{import} \PY{n}{reduce}
+          
+          \PY{n}{msg\PYZus{}lst}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{y}\PY{p}{,} \PY{n}{msg\PYZus{}lst}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}246}]:} 'A B C D E'
+\end{Verbatim}
+            
+    \hypertarget{filter}{%
+\paragraph{filter}\label{filter}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{n}{letterwithS}\PY{p}{,}\PY{n}{word\PYZus{}list}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZhy{}\PYZgt{} filter gives you a filtered list}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}239}]:} ['San Jose', 'San Francisco', 'Santa Fe']
+\end{Verbatim}
+            
+    \hypertarget{recommended-additional-content}{%
+\subsubsection{Recommended Additional
+Content}\label{recommended-additional-content}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability/displaying-describing-data/mean-median-basics/v/statistics-the-average}{Meand
+  and Median: Basic}
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability/displaying-describing-data/more-mean-median/e/calculating-the-mean-from-various-data-displays}{Mean
+  and Median: Advanced}
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability/displaying-describing-data/range-iqr-mad/v/range-and-mid-range}{Range,
+  IQR, Mean absolute Deviation(MAD)}
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability/displaying-describing-data/pop-variance-standard-deviation/v/range-variance-and-standard-deviation-as-measures-of-dispersion}{Population
+  variance and standard deviation}
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability/displaying-describing-data/sample-standard-deviation/v/sample-variance}{Sample
+  variance and standard deviation}
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability/probability-library}{Basic
+  probability}
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library}{Random
+  variables}
+\end{itemize}
+
+    \hypertarget{python-datascience-topics}{%
+\section{Python Datascience Topics}\label{python-datascience-topics}}
+
+\hypertarget{general-overview}{%
+\subsection{General Overview}\label{general-overview}}
+
+\hypertarget{a-data-structure-in-any-programming-language-have-certain-attributes-and-operations-associated-with-it.}{%
+\subsubsection{A Data-structure in any programming language have certain
+attributes and operations associated with
+it.}\label{a-data-structure-in-any-programming-language-have-certain-attributes-and-operations-associated-with-it.}}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Broadly some of these are listed below **\emph{ \textgreater{}
+}Overview* - Section \ref{numpy} 1. Section \ref{numpy-attributes} 2.
+Section \ref{numpy-features} 3. Section \ref{numpy-operations} -
+Section \ref{pandas} - Section \ref{pandas-groupby} -
+Section \ref{pivot-table} - Section \ref{crosstab}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{quote}
+\textbf{MAIN MODULES} 1. Section \ref{hypothetical-testing}
+\end{quote}
+
+     \# Numpy : Overview
+
+\hypertarget{enables-to-write-vectorized-code-convenient-to-read-write-and-concise}{%
+\paragraph{Enables to write vectorized code, convenient to read, write
+and
+concise}\label{enables-to-write-vectorized-code-convenient-to-read-write-and-concise}}
+
+\hypertarget{faster-computation}{%
+\paragraph{* Faster computation}\label{faster-computation}}
+
+\hypertarget{stands-for-numerical-python}{%
+\paragraph{* Stands for numerical
+Python}\label{stands-for-numerical-python}}
+
+\hypertarget{lib-written-for-scientific-computation-and-data-analysis}{%
+\paragraph{Lib written for scientific computation and data
+analysis}\label{lib-written-for-scientific-computation-and-data-analysis}}
+
+\hypertarget{basic-object-is-ndarray-an-array-of-n-dimesional-homogeneous-same-data-type-array}{%
+\paragraph{Basic object is ndarray, an array of n dimesional homogeneous
+(same data type)
+array}\label{basic-object-is-ndarray-an-array-of-n-dimesional-homogeneous-same-data-type-array}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+     \#\# ATTRIBUTES
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{array\PYZus{}1d}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} 
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{array\PYZus{}1d}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{array\PYZus{}1d}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} [1 2 3 4 5]  :  \PYZlt{}class \PYZsq{}numpy.ndarray\PYZsq{}\PYZgt{}}
+        \PY{n}{array\PYZus{}2d}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{array\PYZus{}2d}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{array\PYZus{}2d}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ shape(dimension): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{array\PYZus{}2d}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ size(len): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{array\PYZus{}2d}\PY{o}{.}\PY{n}{size}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} [[\PYZsq{}row\PYZhy{}1\PYZsq{} \PYZsq{}1\PYZsq{} \PYZsq{}2\PYZsq{}]}
+        \PY{c+c1}{\PYZsh{}  [\PYZsq{}row\PYZhy{}2\PYZsq{} \PYZsq{}3\PYZsq{} \PYZsq{}4\PYZsq{}]]  :  \PYZlt{}class \PYZsq{}numpy.ndarray\PYZsq{}\PYZgt{}  shape(dimension):  (2, 3)  size(len):  6}
+\end{Verbatim}
+
+
+    \hypertarget{vectorized-coding}{%
+\subparagraph{Vectorized Coding}\label{vectorized-coding}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{list1}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}
+        \PY{n}{list2}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{To add these two list (each items), we need to iterate and than add}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{p}{,} \PY{n}{list1}\PY{p}{,}\PY{n}{list2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+               
+            \PY{c+c1}{\PYZsh{} [9, 9, 9, 9]}
+                
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{In vectorized form i.e. numpy it is simple, elegant code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{nparr1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{list1}\PY{p}{)}
+        \PY{n}{nparr2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{list2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{nparr1}\PY{o}{+}\PY{n}{nparr2}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} [9 9 9 9]}
+\end{Verbatim}
+
+
+    \hypertarget{numpy-arrray-creation-initialization}{%
+\subparagraph{numpy arrray creation,
+initialization}\label{numpy-arrray-creation-initialization}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{tup1}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{from tuple: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{tup1}\PY{p}{)}\PY{p}{)}         \PY{c+c1}{\PYZsh{} from tuple:  [1 2 3 4]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{from list: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{list1}\PY{p}{)}\PY{p}{)}         \PY{c+c1}{\PYZsh{} from list:  [1 2 3 4]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} Default numpy array for data generation \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} np.ones() \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtype=str }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{str}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} dtype=str  [[\PYZsq{}1\PYZsq{} \PYZsq{}1\PYZsq{} \PYZsq{}1\PYZsq{}]}
+            \PY{c+c1}{\PYZsh{}  [\PYZsq{}1\PYZsq{} \PYZsq{}1\PYZsq{} \PYZsq{}1\PYZsq{}]]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtype=default i.e. float64}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ dtype: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} dtype=default i.e. float64 [[1. 1. 1.]}
+            \PY{c+c1}{\PYZsh{}  [1. 1. 1.]]  dtype:  \PYZlt{}class \PYZsq{}numpy.float64\PYZsq{}\PYZgt{}}
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} np.zeros() \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtype=default i.e. float64}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ dtype: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} dtype=default i.e. float64 [[0. 0. 0.]}
+            \PY{c+c1}{\PYZsh{}  [0. 0. 0.]]  dtype:  \PYZlt{}class \PYZsq{}numpy.float64\PYZsq{}\PYZgt{}}
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} np.random.random() create array of random numbers between 0\PYZhy{}1\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} np.random.seed(4) \PYZsh{} This will make sure same number generated on each run (see value)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtype=default i.e. float64}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ dtype: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} dtype=default i.e. float64 [[0.28914631 0.50254531 0.46478469]}
+            \PY{c+c1}{\PYZsh{}  [0.99434512 0.87326953 0.25146478]]  dtype:  \PYZlt{}class \PYZsq{}numpy.float64\PYZsq{}\PYZgt{}}
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} np.arange() creates an array of fix increment step\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtype=default i.e. float64}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,}\PY{l+m+mf}{100.0}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ dtype: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,}\PY{l+m+mf}{100.0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}  [10. 15. 20. 25. 30. 35. 40. 45. 50. 55. 60. 65. 70. 75. 80. 85. 90. 95.]  dtype:  \PYZlt{}class \PYZsq{}numpy.float64\PYZsq{}\PYZgt{}}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} np.linspace() array of fix length between a range\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dtype=default i.e. float}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ dtype: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{}[10. 11.14285714 12.28571429 13.42857143 14.57142857 15.71428571 16.85714286 18.]  dtype:  \PYZlt{}class \PYZsq{}numpy.float64\PYZsq{}\PYZgt{}}
+\end{Verbatim}
+
+
+     \#\# FEATURES \#\#\#\#\# Inspect the Structure and Content of Arrays
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{shape}: Shape of array (n x m)
+\item
+  \texttt{dtype}: data type (int, float etc.)
+\item
+  \texttt{ndim}: Number of dimensions (or axes)
+\item
+  \texttt{itemsize}: Memory used by each array elememnt in bytes
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{np\PYZus{}arr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np\PYZus{}arr}\PY{o}{.}\PY{n}{size}\PY{p}{)} \PY{c+c1}{\PYZsh{} 6 i.e. 2*3}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np\PYZus{}arr}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np\PYZus{}arr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} 0.001544449651610158}
+         
+        \PY{n}{np\PYZus{}arr3d}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} read from right to left (for any array higher than 2 dimensions)}
+            \PY{c+c1}{\PYZsh{} for example (2,3,4) will have 4 elements(columns) 3 rows and 2 of them}
+            \PY{c+c1}{\PYZsh{} [[[0.20285425 0.16040217 0.72273091 0.8505519 ]}
+            \PY{c+c1}{\PYZsh{}   [0.70323723 0.18269224 0.0398234  0.60145375]}
+            \PY{c+c1}{\PYZsh{}   [0.07136791 0.29464647 0.19020854 0.31875633]]}
+        
+            \PY{c+c1}{\PYZsh{}  [[0.75006555 0.77085525 0.19401341 0.82424295]}
+            \PY{c+c1}{\PYZsh{}   [0.23649788 0.90376864 0.29167265 0.55492356]}
+            \PY{c+c1}{\PYZsh{}   [0.28163111 0.6677762  0.56934992 0.48377137]]]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ number of dimension i.e. 2D Array :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np\PYZus{}arr}\PY{o}{.}\PY{n}{ndim}\PY{p}{)} \PY{c+c1}{\PYZsh{}  number of dimension i.e. 2D Array : 2  }
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ number of dimension i.e. 3D Array :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np\PYZus{}arr3d}\PY{o}{.}\PY{n}{ndim}\PY{p}{)} \PY{c+c1}{\PYZsh{}  number of dimension i.e. 3D Array : 3}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shape of array i.e. rows, columns: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np\PYZus{}arr3d}\PY{o}{.}\PY{n}{shape}\PY{p}{)} \PY{c+c1}{\PYZsh{} Shape of array i.e. rows, columns:  (2, 3, 4)}
+        
+        \PY{n}{arr\PYZus{}str}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{str}\PY{p}{)}
+        \PY{n}{arr\PYZus{}float}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{String: Memory size of each element (bytes): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}str}\PY{o}{.}\PY{n}{itemsize}\PY{p}{)} \PY{c+c1}{\PYZsh{} String: Memory size of each element (bytes):  128}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{String: Memory size of each element (bytes): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{arr\PYZus{}float}\PY{o}{.}\PY{n}{itemsize}\PY{p}{)} \PY{c+c1}{\PYZsh{} String: Memory size of each element (bytes):  8}
+\end{Verbatim}
+
+
+    \hypertarget{slcing-subset-and-extraction}{%
+\subparagraph{Slcing, subset and
+extraction}\label{slcing-subset-and-extraction}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{nparr1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{nparr1}\PY{p}{,}\PY{n}{nparr2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{nparr1}\PY{p}{)}\PY{p}{)}                                                \PY{c+c1}{\PYZsh{}[1 2 3 4 5 6 7 8]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Slicing\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{All [:] }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{nparr1}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)}                                   \PY{c+c1}{\PYZsh{} All [:]  [1 2 3 4 5 6 7 8]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{start \PYZhy{}\PYZgt{} last [1:] }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{nparr1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}                       \PY{c+c1}{\PYZsh{}start \PYZhy{}\PYZgt{} last [1:]  [2 3 4 5 6 7 8]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0 till end(excluding 2) [:2] }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{nparr1}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}             \PY{c+c1}{\PYZsh{} 0 till end(excluding 2) [:2]  [1 2]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}subset\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{subsets [[a,b,c]] }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{nparr1}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}                   \PY{c+c1}{\PYZsh{} subsets [[a,b,c]]  [2 4 5]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{stepping [1:,:,2] }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{nparr1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}                      \PY{c+c1}{\PYZsh{} stepping [1:,:,2]  [2 4 6 8]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Multidimensional\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Slicing\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{All [:] }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{np\PYZus{}arr3d}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)} 
+                                                                    \PY{c+c1}{\PYZsh{}   All [:]  [[[0.83928841 0.17334502 0.27827657 0.48414788]}
+                                                                    \PY{c+c1}{\PYZsh{}   [0.85987119 0.11521202 0.33868847 0.53224018]}
+                                                                    \PY{c+c1}{\PYZsh{}   [0.67834956 0.10519407 0.75528363 0.5569211 ]]}
+        
+                                                                    \PY{c+c1}{\PYZsh{}  [[0.5171444  0.38087046 0.31464712 0.89050462]}
+                                                                    \PY{c+c1}{\PYZsh{}   [0.99377647 0.17521486 0.21150118 0.66703409]}
+                                                                    \PY{c+c1}{\PYZsh{}   [0.7645629  0.82296581 0.30244554 0.20910031]]]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Subsetting [1:2,:,2:3] }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{np\PYZus{}arr3d}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+                                                                    \PY{c+c1}{\PYZsh{} Subsetting [1:2,:,2:3]  [[[0.31464712]}
+                                                                    \PY{c+c1}{\PYZsh{}   [0.21150118]}
+                                                                    \PY{c+c1}{\PYZsh{}   [0.30244554]]]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Iteration\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np\PYZus{}arr3d}\PY{p}{:}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{i}\PY{p}{:}
+                \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{j}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Computation Speed}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n}{lst1}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{]}
+        \PY{n}{lst2}\PY{o}{=}\PY{p}{[}\PY{n}{j}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n}{t0}\PY{o}{=}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{product\PYZus{}lst}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{lst1}\PY{p}{,}\PY{n}{lst2}\PY{p}{)}\PY{p}{)}
+        \PY{n}{t1}\PY{o}{=}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{t1}\PY{o}{\PYZhy{}}\PY{n}{t0}\PY{p}{)} \PY{c+c1}{\PYZsh{} 0.1715998649597168}
+        
+        \PY{n}{np\PYZus{}ar1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{lst1}\PY{p}{)}
+        \PY{n}{np\PYZus{}ar2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{lst2}\PY{p}{)}
+        \PY{n}{t0}\PY{o}{=}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{product\PYZus{}arr}\PY{o}{=}\PY{n}{np\PYZus{}ar1}\PY{o}{*}\PY{n}{np\PYZus{}ar2}
+        \PY{n}{t1}\PY{o}{=}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{t1}\PY{o}{\PYZhy{}}\PY{n}{t0}\PY{p}{)} \PY{c+c1}{\PYZsh{} 0.0}
+\end{Verbatim}
+
+
+     \#\# OPERATIONS The learning objectives of this section are:
+
+\begin{itemize}
+\tightlist
+\item
+  Manipulate arrays
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Reshape arrays
+  \item
+    Stack arrays
+  \end{itemize}
+\item
+  Perform operations on arrays
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Perform basic mathematical operations
+  \item
+    Apply built-in functions
+  \item
+    Apply your own functions
+  \item
+    Apply basic linear algebra operations
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{some\PYZus{}arr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RESHAPING}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{some\PYZus{}arr}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZhy{}1 implies the calculation will be done automatically}
+            \PY{c+c1}{\PYZsh{} [[ 0  1  2  3  4  5]}
+            \PY{c+c1}{\PYZsh{}  [ 6  7  8  9 10 11]]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{some\PYZus{}arr}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} [[ 0  6]}
+            \PY{c+c1}{\PYZsh{}  [ 1  7]}
+            \PY{c+c1}{\PYZsh{}  [ 2  8]}
+            \PY{c+c1}{\PYZsh{}  [ 3  9]}
+            \PY{c+c1}{\PYZsh{}  [ 4 10]}
+            \PY{c+c1}{\PYZsh{}  [ 5 11]]}
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{STACKING \PYZhy{}hstack, \PYZhy{}vstack}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Vertical stacking not possible if col numbers differ and for hstack rows should be same}
+        \PY{c+c1}{\PYZsh{} Error : ValueError: all the input array dimensions except for the concatenation axis must match exactly}
+        
+        \PY{n}{ar1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{ar2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{ar1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{ar2}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} [ 0  1  2]}
+            \PY{c+c1}{\PYZsh{}  [ 3  4  5]}
+            \PY{c+c1}{\PYZsh{}  [ 6  7  8]}
+            \PY{c+c1}{\PYZsh{}  [ 9 10 11]] }
+        
+            \PY{c+c1}{\PYZsh{} [[ 0  1  2  3  4]}
+            \PY{c+c1}{\PYZsh{}  [ 5  6  7  8  9]}
+            \PY{c+c1}{\PYZsh{}  [10 11 12 13 14]}
+            \PY{c+c1}{\PYZsh{}  [15 16 17 18 19]]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Horizontal Stacking}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{ar1}\PY{p}{,}\PY{n}{ar2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} [[ 0  1  2  0  1  2  3  4]}
+            \PY{c+c1}{\PYZsh{}  [ 3  4  5  5  6  7  8  9]}
+            \PY{c+c1}{\PYZsh{}  [ 6  7  8 10 11 12 13 14]}
+            \PY{c+c1}{\PYZsh{}  [ 9 10 11 15 16 17 18 19]]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vertical Stacking}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{ar1}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}\PY{n}{ar2}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} [[ 0  1  2  3]}
+            \PY{c+c1}{\PYZsh{}  [ 4  5  6  7]}
+            \PY{c+c1}{\PYZsh{}  [ 8  9 10 11]}
+            \PY{c+c1}{\PYZsh{}  [ 0  1  2  3]}
+            \PY{c+c1}{\PYZsh{}  [ 4  5  6  7]}
+            \PY{c+c1}{\PYZsh{}  [ 8  9 10 11]}
+            \PY{c+c1}{\PYZsh{}  [12 13 14 15]}
+            \PY{c+c1}{\PYZsh{}  [16 17 18 19]]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}non numpy way of implementation is using the list expression whereas numpy way is to vectorize the function and apply}
+        \PY{n}{lst}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{lst}\PY{p}{)}
+        \PY{n}{t\PYZus{}list\PYZus{}lsx}\PY{o}{=}\PY{p}{[}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{lst}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}list\PYZus{}lsx}\PY{p}{)} \PY{c+c1}{\PYZsh{} [0.0, 0.5, 0.6666666666666666, 0.75, 0.8]}
+        
+        \PY{c+c1}{\PYZsh{} VECTORIZE}
+        \PY{n}{n\PYZus{}list\PYZus{}v}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{n\PYZus{}list\PYZus{}v}\PY{p}{(}\PY{n}{lst}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} [0.         0.5        0.66666667 0.75       0.8       ]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{matrx}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{matrx\PYZus{}c}\PY{o}{=}\PY{n}{matrx}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matrix}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{matrx}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Inverse Matrix}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{matrx}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Determinant}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{matrx}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Eignen values and vectors}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{matrx}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{matrx\PYZus{}c}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} [[ 1  2  3  4]}
+            \PY{c+c1}{\PYZsh{}  [ 5  6  7  8]}
+            \PY{c+c1}{\PYZsh{}  [ 9 10 11 12]}
+            \PY{c+c1}{\PYZsh{}  [13 14 15 16]]}
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{vsplit}\PY{p}{(}\PY{n}{matrx\PYZus{}c}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}
+        \PY{n}{m1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{m2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{m1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{m2}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{m1}\PY{p}{,}\PY{n}{m2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{numpy-ends}{%
+\subsection{\texorpdfstring{\texttt{Numpy\ Ends}}{Numpy Ends}}\label{numpy-ends}}
+
+     \# \texttt{Pandas}
+
+    \hypertarget{in-this-section-you-will-study}{%
+\paragraph{In this section, you will
+study:}\label{in-this-section-you-will-study}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The pandas Series (similar to a numpy array)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Creating a pandas series
+  \item
+    Indexing series
+  \end{itemize}
+\item
+  Dataframes
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Creating dataframes from dictionaries
+  \item
+    Importing CSV data files as pandas dataframes
+  \item
+    Reading and summarising dataframes
+  \item
+    Sorting dataframes
+  \end{itemize}
+\end{enumerate}
+
+    \hypertarget{series}{%
+\subsection{\texorpdfstring{\texttt{SERIES}}{SERIES}}\label{series}}
+
+\hypertarget{the-pandas-series}{%
+\subsubsection{1. The Pandas Series}\label{the-pandas-series}}
+
+A series is similar to a 1-D numpy array, and contains scalar values of
+the same type (numeric, character, datetime etc.). A dataframe is simply
+a table where each column is a pandas series.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n}{s}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data\PYZhy{}type }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ series}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}default type of each element may differ it doesn\PYZsq{}t restrict as numpy array}
+        \PY{n}{char\PYZus{}series}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{char\PYZus{}series}\PY{p}{)}
+        
+        \PY{n}{date\PYZus{}series}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{n}{start}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11\PYZhy{}09\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11\PYZhy{}12\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Series: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ Type: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{date\PYZus{}series}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{date\PYZus{}series}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} DatetimeIndex([\PYZsq{}2017\PYZhy{}11\PYZhy{}09\PYZsq{}, \PYZsq{}2017\PYZhy{}11\PYZhy{}10\PYZsq{}, \PYZsq{}2017\PYZhy{}11\PYZhy{}11\PYZsq{}, \PYZsq{}2017\PYZhy{}11\PYZhy{}12\PYZsq{}], dtype=\PYZsq{}datetime64[ns]\PYZsq{}, freq=\PYZsq{}D\PYZsq{}) }
+            \PY{c+c1}{\PYZsh{} Type: \PYZlt{}class \PYZsq{}pandas.core.indexes.datetimes.DatetimeIndex\PYZsq{}\PYZgt{} }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Indexing of series}
+            \PY{c+c1}{\PYZsh{} [1.0,2,4,5,\PYZsq{}6\PYZsq{}] }
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} 4}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} 0    1}
+            \PY{c+c1}{\PYZsh{} 1    2}
+            \PY{c+c1}{\PYZsh{} 2    4}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} 0    1}
+            \PY{c+c1}{\PYZsh{} 2    4}
+            \PY{c+c1}{\PYZsh{} 3    5}
+\end{Verbatim}
+
+
+    \hypertarget{series-ends}{%
+\subsubsection{\texorpdfstring{\texttt{SERIES\ ENDS}}{SERIES ENDS}}\label{series-ends}}
+
+    \hypertarget{dataframe}{%
+\subsubsection{\texorpdfstring{\texttt{DATAFRAME}}{DATAFRAME}}\label{dataframe}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} keys become column names}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vinay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kushal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aman}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Saif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{]}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{engineer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doctor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data analyst}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{teacher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                                                                                \PY{c+c1}{\PYZsh{}    age    name    occupation}
+                                                                                \PY{c+c1}{\PYZsh{} 0   22   Vinay      engineer}
+                                                                                \PY{c+c1}{\PYZsh{} 1   25  Kushal        doctor}
+                                                                                \PY{c+c1}{\PYZsh{} 2   24    Aman  data analyst}
+                                                                                \PY{c+c1}{\PYZsh{} 3   28    Saif       teacher}
+        \PY{n}{market}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./pandas/market\PYZus{}fact.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iso\PYZhy{}8859\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{market}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}      Ord\PYZus{}id  Prod\PYZus{}id   Ship\PYZus{}id    Cust\PYZus{}id    Sales  Discount  Order\PYZus{}Quantity   Profit  Shipping\PYZus{}Cost  Product\PYZus{}Base\PYZus{}Margin }
+        \PY{c+c1}{\PYZsh{} 0  Ord\PYZus{}5446  Prod\PYZus{}16  SHP\PYZus{}7609  Cust\PYZus{}1818   136.81      0.01              23   \PYZhy{}30.51           3.60                 0.56  }
+        \PY{c+c1}{\PYZsh{} 1  Ord\PYZus{}5406  Prod\PYZus{}13  SHP\PYZus{}7549  Cust\PYZus{}1818    42.27      0.01              13     4.56           0.93                 0.54  }
+        \PY{c+c1}{\PYZsh{} 2  Ord\PYZus{}5446   Prod\PYZus{}4  SHP\PYZus{}7610  Cust\PYZus{}1818  4701.69      0.00              26  1148.90           2.50                 0.59  }
+        \PY{c+c1}{\PYZsh{} 3  Ord\PYZus{}5456   Prod\PYZus{}6  SHP\PYZus{}7625  Cust\PYZus{}1818  2337.89      0.09              43   729.34          14.30                 0.37  }
+        \PY{c+c1}{\PYZsh{} 4  Ord\PYZus{}5485  Prod\PYZus{}17  SHP\PYZus{}7664  Cust\PYZus{}1818  4233.15      0.08              35  1219.87          26.30                 0.38 }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{market}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ord\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}market.reset\PYZus{}index(inplace=True)}
+        \PY{n}{market}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}  	Prod\PYZus{}id 	Ship\PYZus{}id 	Cust\PYZus{}id 	Sales 	Discount 	Order\PYZus{}Quantity 	Profit 	Shipping\PYZus{}Cost 	Product\PYZus{}Base\PYZus{}Margin}
+        \PY{c+c1}{\PYZsh{} Ord\PYZus{}id 									}
+        \PY{c+c1}{\PYZsh{} Ord\PYZus{}5446 	Prod\PYZus{}16 	SHP\PYZus{}7609 	Cust\PYZus{}1818 	136.81 	0.01 	23 	\PYZhy{}30.51 	3.60 	0.56}
+        \PY{c+c1}{\PYZsh{} Ord\PYZus{}5406 	Prod\PYZus{}13 	SHP\PYZus{}7549 	Cust\PYZus{}1818 	42.27 	0.01 	13 	4.56 	0.93 	0.54}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{market}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prod\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{market}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prod\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cust\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{market}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} axis=1 sort rows containing columns name axis=0 wil sort column index}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+         Prod\_id   Ship\_id   Cust\_id    Sales  Discount  Order\_Quantity  \textbackslash{}
+Ord\_id                                                                    
+Ord\_1067  Prod\_1  SHP\_1474  Cust\_397  7333.45      0.07              27   
+Ord\_1791  Prod\_1  SHP\_2482  Cust\_838   416.40      0.02              24   
+
+          Profit  Shipping\_Cost  Product\_Base\_Margin  
+Ord\_id                                                
+Ord\_1067 -207.28          35.00                 0.80  
+Ord\_1791   24.33           4.96                 0.58  
+        Prod\_id  Ship\_id   Cust\_id   Sales  Discount  Order\_Quantity  Profit  \textbackslash{}
+Ord\_id                                                                         
+Ord\_1    Prod\_1    SHP\_1    Cust\_1  261.54      0.04               6 -213.25   
+Ord\_247  Prod\_1  SHP\_342  Cust\_100  120.03      0.02               7  -56.06   
+
+         Shipping\_Cost  Product\_Base\_Margin  
+Ord\_id                                       
+Ord\_1            35.00                  0.8  
+Ord\_247          11.25                  0.6  
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:}          Prod\_id   Ship\_id   Cust\_id     Sales  Discount  Order\_Quantity  \textbackslash{}
+          Ord\_id                                                                     
+          Ord\_999  Prod\_15  SHP\_1383  Cust\_361   5661.08      0.00              33   
+          Ord\_998   Prod\_8  SHP\_1380  Cust\_372    750.66      0.00              33   
+          Ord\_998   Prod\_5  SHP\_1382  Cust\_372   2149.37      0.03              42   
+          Ord\_998   Prod\_8  SHP\_1381  Cust\_372    254.32      0.01               8   
+          Ord\_997  Prod\_14  SHP\_1379  Cust\_365  28761.52      0.04               8   
+          
+                    Profit  Shipping\_Cost  Product\_Base\_Margin  
+          Ord\_id                                                
+          Ord\_999  1055.47          30.00                 0.62  
+          Ord\_998   120.05           4.00                 0.60  
+          Ord\_998   217.87          19.99                 0.55  
+          Ord\_998  -117.39           6.50                 0.79  
+          Ord\_997   285.11          24.49                 0.37  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{market}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{market}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ship\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+          \PY{n}{market}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+          Prod\_id   Ship\_id    Cust\_id      Sales  Discount  Order\_Quantity  \textbackslash{}
+Ord\_id                                                                        
+Ord\_5406  Prod\_13  SHP\_7549  Cust\_1818    42.2700      0.01              13   
+Ord\_5456   Prod\_6  SHP\_7625  Cust\_1818  2337.8900      0.09              43   
+Ord\_5446   Prod\_6  SHP\_7608  Cust\_1818   164.0200      0.03              23   
+Ord\_4725   Prod\_4  SHP\_6593  Cust\_1641  3410.1575      0.10              48   
+Ord\_4725   Prod\_6  SHP\_6593  Cust\_1641    57.2200      0.07               8   
+
+           Profit  Shipping\_Cost  Product\_Base\_Margin  
+Ord\_id                                                 
+Ord\_5406     4.56           0.93                 0.54  
+Ord\_5456   729.34          14.30                 0.37  
+Ord\_5446   -47.64           6.15                 0.37  
+Ord\_4725  1137.91           0.99                 0.55  
+Ord\_4725   -27.72           6.60                 0.37  
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:}        Prod\_id  Ship\_id    Cust\_id         Sales     Discount  Order\_Quantity  \textbackslash{}
+          count     8399     8399       8399   8399.000000  8399.000000     8399.000000   
+          unique      17     7701       1832           NaN          NaN             NaN   
+          top     Prod\_6  SHP\_564  Cust\_1140           NaN          NaN             NaN   
+          freq      1225        4         30           NaN          NaN             NaN   
+          mean       NaN      NaN        NaN   1775.878179     0.049671       25.571735   
+          std        NaN      NaN        NaN   3585.050525     0.031823       14.481071   
+          min        NaN      NaN        NaN      2.240000     0.000000        1.000000   
+          25\%        NaN      NaN        NaN    143.195000     0.020000       13.000000   
+          50\%        NaN      NaN        NaN    449.420000     0.050000       26.000000   
+          75\%        NaN      NaN        NaN   1709.320000     0.080000       38.000000   
+          max        NaN      NaN        NaN  89061.050000     0.250000       50.000000   
+          
+                        Profit  Shipping\_Cost  Product\_Base\_Margin  
+          count    8399.000000    8399.000000          8336.000000  
+          unique           NaN            NaN                  NaN  
+          top              NaN            NaN                  NaN  
+          freq             NaN            NaN                  NaN  
+          mean      181.184424      12.838557             0.512513  
+          std      1196.653371      17.264052             0.135589  
+          min    -14140.700000       0.490000             0.350000  
+          25\%       -83.315000       3.300000             0.380000  
+          50\%        -1.500000       6.070000             0.520000  
+          75\%       162.750000      13.990000             0.590000  
+          max     27220.690000     164.730000             0.850000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{} applies to rows and assume all columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:}    age    name occupation
+          0   22   Vinay   engineer
+          1   25  Kushal     doctor
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{True}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{} applied to columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:}    age    occupation
+          0   22      engineer
+          1   25        doctor
+          2   24  data analyst
+          3   28       teacher
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{age}\PY{o}{\PYZgt{}}\PY{l+m+mi}{24}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{occupation}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doctor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{engineer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}df.occupation.isin([\PYZsq{}doctor\PYZsq{},\PYZsq{}engineer\PYZsq{}]) == (df.occupation.apply(lambda x: x in [\PYZsq{}doctor\PYZsq{},\PYZsq{}engineer\PYZsq{}]))]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:}    age    name occupation
+          1   25  Kushal     doctor
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{c+c1}{\PYZsh{}df.append(pd.DataFrame(\PYZob{}\PYZsq{}age\PYZsq{}:28,\PYZsq{}name\PYZsq{}:\PYZsq{}Saurabh\PYZsq{},\PYZsq{}occupation\PYZsq{}:\PYZsq{}doctor\PYZsq{}\PYZcb{}))}
+          \PY{n}{df}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{28}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Saurabh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doctor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{df}\PY{o}{.}\PY{n}{occupation}\PY{o}{.}\PY{n}{is\PYZus{}unique}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:} False
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{n}{mer\PYZus{}df1}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cust\PYZus{}key}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{2000}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}
+          \PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{mer\PYZus{}df2}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cust\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}
+          \PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{merged\PYZus{}on\PYZus{}diff\PYZus{}col}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{mer\PYZus{}df1}\PY{p}{,}\PY{n}{mer\PYZus{}df2}\PY{p}{,}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cust\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{merged\PYZus{}on\PYZus{}diff\PYZus{}col}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}121}]:}    cust\_key  id  age  cust\_id
+          0      1000   0   20        0
+          1      1111   1   23        1
+          2      1222   2   26        2
+          3      1333   3   30        3
+          4      1444   4   33        4
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{mer\PYZus{}df1}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cust\PYZus{}key}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{2000}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}
+          \PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{mer\PYZus{}df2}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}
+          \PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{mer\PYZus{}df1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{mer\PYZus{}df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   cust\_key  id
+0      1000   0
+1      1111   2
+2      1222   4
+3      1333   6
+4      1444   8
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:}    age  id
+          0   20   0
+          1   23   1
+          2   26   2
+          3   30   3
+          4   33   4
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{mer\PYZus{}df1}\PY{p}{,}\PY{n}{mer\PYZus{}df2}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:}    cust\_key  id   age
+          0      1000   0  20.0
+          1      1111   2  26.0
+          2      1222   4  33.0
+          3      1333   6  40.0
+          4      1444   8  46.0
+          5      1555  10   NaN
+          6      1666  12   NaN
+          7      1777  14   NaN
+          8      1888  16   NaN
+          9      2000  18   NaN
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{n}{mer\PYZus{}df2}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}
+          \PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{mer\PYZus{}df1}\PY{p}{,}\PY{n}{mer\PYZus{}df2}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:}    cust\_key  id  age
+          0    1000.0   0   20
+          1    1666.0  12   43
+          2    1777.0  14   50
+          3       NaN   1   23
+          4       NaN   3   26
+          5       NaN   5   30
+          6       NaN   7   33
+          7       NaN   9   36
+          8       NaN  11   40
+          9       NaN  13   46
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{outer\PYZus{}df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{mer\PYZus{}df1}\PY{p}{,}\PY{n}{mer\PYZus{}df2}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{outer\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:}     cust\_key  id   age
+          0     1000.0   0  20.0
+          1     1111.0   2   NaN
+          2     1222.0   4   NaN
+          3     1333.0   6   NaN
+          4     1444.0   8   NaN
+          5     1555.0  10   NaN
+          6     1666.0  12  43.0
+          7     1777.0  14  50.0
+          8     1888.0  16   NaN
+          9     2000.0  18   NaN
+          10       NaN   1  23.0
+          11       NaN   3  26.0
+          12       NaN   5  30.0
+          13       NaN   7  33.0
+          14       NaN   9  36.0
+          15       NaN  11  40.0
+          16       NaN  13  46.0
+\end{Verbatim}
+            
+    \hypertarget{dataframe-ends}{%
+\subsubsection{\texorpdfstring{\texttt{DATAFRAME\ ENDS}}{DATAFRAME ENDS}}\label{dataframe-ends}}
+
+     \#\#\#\# Aggregation and group operation
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{ipl\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Devils}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Devils}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Royals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Royals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4} \PY{p}{,}\PY{l+m+mi}{1} \PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2} \PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2014}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{,}\PY{l+m+mi}{2014}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{,}\PY{l+m+mi}{2014}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{,}\PY{l+m+mi}{2017}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{,}\PY{l+m+mi}{2014}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{,}\PY{l+m+mi}{2017}\PY{p}{]}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{876}\PY{p}{,}\PY{l+m+mi}{789}\PY{p}{,}\PY{l+m+mi}{863}\PY{p}{,}\PY{l+m+mi}{673}\PY{p}{,}\PY{l+m+mi}{741}\PY{p}{,}\PY{l+m+mi}{812}\PY{p}{,}\PY{l+m+mi}{756}\PY{p}{,}\PY{l+m+mi}{788}\PY{p}{,}\PY{l+m+mi}{694}\PY{p}{,}\PY{l+m+mi}{701}\PY{p}{,}\PY{l+m+mi}{804}\PY{p}{,}\PY{l+m+mi}{690}\PY{p}{]}\PY{p}{\PYZcb{}}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ipl\PYZus{}data}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:}    Points  Rank    Team  Year
+          0     876     1  Riders  2014
+          1     789     2  Riders  2015
+          2     863     2  Devils  2014
+          3     673     3  Devils  2015
+          4     741     3   Kings  2014
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{groups} \PY{c+c1}{\PYZsh{}groupping by column Team}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} \{'Devils': Int64Index([2, 3], dtype='int64'),
+           'Kings': Int64Index([4, 6, 7], dtype='int64'),
+           'Riders': Int64Index([0, 1, 8, 11], dtype='int64'),
+           'Royals': Int64Index([9, 10], dtype='int64'),
+           'kings': Int64Index([5], dtype='int64')\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{groups} \PY{c+c1}{\PYZsh{}grouping by 2\PYZhy{}col first by Team and then by Rank}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:} \{('Devils', 2): Int64Index([2], dtype='int64'),
+           ('Devils', 3): Int64Index([3], dtype='int64'),
+           ('Kings', 1): Int64Index([6, 7], dtype='int64'),
+           ('Kings', 3): Int64Index([4], dtype='int64'),
+           ('Riders', 1): Int64Index([0], dtype='int64'),
+           ('Riders', 2): Int64Index([1, 8, 11], dtype='int64'),
+           ('Royals', 1): Int64Index([10], dtype='int64'),
+           ('Royals', 4): Int64Index([9], dtype='int64'),
+           ('kings', 4): Int64Index([5], dtype='int64')\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{group\PYZus{}name}\PY{p}{,}\PY{n}{group\PYZus{}df} \PY{o+ow}{in} \PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{group\PYZus{}name}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{group\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2014 
+    Points  Rank    Team  Year
+0     876     1  Riders  2014
+2     863     2  Devils  2014
+4     741     3   Kings  2014
+9     701     4  Royals  2014
+2015 
+     Points  Rank    Team  Year
+1      789     2  Riders  2015
+3      673     3  Devils  2015
+5      812     4   kings  2015
+10     804     1  Royals  2015
+2016 
+    Points  Rank    Team  Year
+6     756     1   Kings  2016
+8     694     2  Riders  2016
+2017 
+     Points  Rank    Team  Year
+7      788     1   Kings  2017
+11     690     2  Riders  2017
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{)} \PY{c+c1}{\PYZsh{} To find how many elements are there in each group applying np.size method on each series}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}134}]:}       Points  Rank  Team
+          Year                    
+          2014       4     4     4
+          2015       4     4     4
+          2016       2     2     2
+          2017       2     2     2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} applying more than one function on groupped df\PYZsq{}s}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:}       Points       Rank    
+                  mean   sum mean sum
+          Year                       
+          2014  795.25  3181  2.5  10
+          2015  769.50  3078  2.5  10
+          2016  725.00  1450  1.5   3
+          2017  739.00  1478  1.5   3
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{o}{.}\PY{n}{get\PYZus{}group}\PY{p}{(}\PY{l+m+mi}{2014}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}To get specific groups}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   Points  Rank    Team  Year
+0     876     1  Riders  2014
+2     863     2  Devils  2014
+4     741     3   Kings  2014
+9     701     4  Royals  2014
+               Points      Rank
+Year                           
+2014 Points  1.000000 -0.955264
+     Rank   -0.955264  1.000000
+2015 Points  1.000000 -0.182625
+     Rank   -0.182625  1.000000
+2016 Points  1.000000 -1.000000
+     Rank   -1.000000  1.000000
+2017 Points  1.000000 -1.000000
+     Rank   -1.000000  1.000000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}137}]:} 2014         AxesSubplot(0.1,0.559091;0.363636x0.340909)
+          2015    AxesSubplot(0.536364,0.559091;0.363636x0.340909)
+          2016             AxesSubplot(0.1,0.15;0.363636x0.340909)
+          2017        AxesSubplot(0.536364,0.15;0.363636x0.340909)
+          dtype: object
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points Scaled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{o}{.}\PY{n}{Points}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{x}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{n}{df\PYZus{}group\PYZus{}by\PYZus{}obj}\PY{o}{.}\PY{n}{get\PYZus{}group}\PY{p}{(}\PY{l+m+mi}{2014}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}139}]:}    Points  Rank    Team
+          0     876     1  Riders
+          2     863     2  Devils
+          4     741     3   Kings
+          9     701     4  Royals
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{} Groupby is set as index disablinng it as\PYZus{}index=FALSE}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}140}]:}       Points  Rank  Points Scaled
+          Year                             
+          2014  795.25   2.5   3.552714e-15
+          2015  769.50   2.5   0.000000e+00
+          2016  725.00   1.5   0.000000e+00
+          2017  739.00   1.5   0.000000e+00
+\end{Verbatim}
+            
+    \hypertarget{groupby-ends}{%
+\subparagraph{\texorpdfstring{\texttt{GROUPBY\ ENDS}}{GROUPBY ENDS}}\label{groupby-ends}}
+
+     \#\#\#\# \emph{PIVOT TABLE}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{k}{def} \PY{n+nf}{top}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{column}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{n}{column}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{n}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{top}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}ProgramData\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}DS\_3\_6\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:2: FutureWarning: by argument to sort\_index is deprecated, please use .sort\_values(by={\ldots})
+  
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:}                 Points  Rank  Points Scaled
+          Year Team                                  
+          2014 Devils 2      863     2      77.482564
+               Kings  4      741     3     -62.043234
+               Riders 0      876     1      92.350068
+               Royals 9      701     4    -107.789398
+          2015 Devils 3      673     3    -148.379616
+               Riders 1      789     2      29.983446
+               Royals 10     804     1      53.047635
+               kings  5      812     4      65.348535
+          2016 Kings  6      756     1      70.710678
+               Riders 8      694     2     -70.710678
+          2017 Kings  7      788     1      70.710678
+               Riders 11     690     2     -70.710678
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}146}]:}                 Points  Rank    Team  Year  Points Scaled
+          Year Team                                                
+          2014 Devils 2      863     2  Devils  2014      77.482564
+               Kings  4      741     3   Kings  2014     -62.043234
+               Riders 0      876     1  Riders  2014      92.350068
+               Royals 9      701     4  Royals  2014    -107.789398
+          2015 Devils 3      673     3  Devils  2015    -148.379616
+               Riders 1      789     2  Riders  2015      29.983446
+               Royals 10     804     1  Royals  2015      53.047635
+               kings  5      812     4   kings  2015      65.348535
+          2016 Kings  6      756     1   Kings  2016      70.710678
+               Riders 8      694     2  Riders  2016     -70.710678
+          2017 Kings  7      788     1   Kings  2017      70.710678
+               Riders 11     690     2  Riders  2017     -70.710678
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{df}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points Scaled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}143}]:}              Points  Points Scaled  Rank
+          Year Team                               
+          2014 Devils     863      77.482564     2
+               Kings      741     -62.043234     3
+               Riders     876      92.350068     1
+               Royals     701    -107.789398     4
+          2015 Devils     673    -148.379616     3
+               Riders     789      29.983446     2
+               Royals     804      53.047635     1
+               kings      812      65.348535     4
+          2016 Kings      756      70.710678     1
+               Riders     694     -70.710678     2
+          2017 Kings      788      70.710678     1
+               Riders     690     -70.710678     2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{df}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Points Scaled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}144}]:}             Points                      Points Scaled                         \textbackslash{}
+          Rank             1      2      3      4             1          2           3   
+          Year Team                                                                      
+          2014 Devils    NaN  863.0    NaN    NaN           NaN  77.482564         NaN   
+               Kings     NaN    NaN  741.0    NaN           NaN        NaN  -62.043234   
+               Riders  876.0    NaN    NaN    NaN     92.350068        NaN         NaN   
+               Royals    NaN    NaN    NaN  701.0           NaN        NaN         NaN   
+          2015 Devils    NaN    NaN  673.0    NaN           NaN        NaN -148.379616   
+               Riders    NaN  789.0    NaN    NaN           NaN  29.983446         NaN   
+               Royals  804.0    NaN    NaN    NaN     53.047635        NaN         NaN   
+               kings     NaN    NaN    NaN  812.0           NaN        NaN         NaN   
+          2016 Kings   756.0    NaN    NaN    NaN     70.710678        NaN         NaN   
+               Riders    NaN  694.0    NaN    NaN           NaN -70.710678         NaN   
+          2017 Kings   788.0    NaN    NaN    NaN     70.710678        NaN         NaN   
+               Riders    NaN  690.0    NaN    NaN           NaN -70.710678         NaN   
+          
+                                   
+          Rank                  4  
+          Year Team                
+          2014 Devils         NaN  
+               Kings          NaN  
+               Riders         NaN  
+               Royals -107.789398  
+          2015 Devils         NaN  
+               Riders         NaN  
+               Royals         NaN  
+               kings    65.348535  
+          2016 Kings          NaN  
+               Riders         NaN  
+          2017 Kings          NaN  
+               Riders         NaN  
+\end{Verbatim}
+            
+    \hypertarget{pivot-table-ends}{%
+\subparagraph{\texorpdfstring{\emph{Pivot Table
+Ends}}{Pivot Table Ends}}\label{pivot-table-ends}}
+
+     \#\#\#\# Crosstab
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{cross\PYZus{}tab\PYZus{}df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Team}\PY{p}{,}\PY{n}{df}\PY{o}{.}\PY{n}{Rank}\PY{p}{,}\PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{n}{cross\PYZus{}tab\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}148}]:} Rank    1  2  3  4  All
+          Team                   
+          Devils  0  1  1  0    2
+          Kings   2  0  1  0    3
+          Riders  1  3  0  0    4
+          Royals  1  0  0  1    2
+          kings   0  0  0  1    1
+          All     4  4  2  2   12
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}149}]:} \PY{n}{cross\PYZus{}tab}\PY{o}{=}\PY{n}{cross\PYZus{}tab\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{n}{cross\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}150}]:} Rank    Team  1  2  3  4  All
+          0     Devils  0  1  1  0    2
+          1      Kings  2  0  1  0    3
+          2     Riders  1  3  0  0    4
+          3     Royals  1  0  0  1    2
+          4      kings  0  0  0  1    1
+          5        All  4  4  2  2   12
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{n}{cross\PYZus{}tab}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{True}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}(cross\PYZus{}tab[\PYZsq{}Team\PYZsq{}]==\PYZsq{}All\PYZsq{}).tolist() \PYZsh{}\PYZsh{}\PYZsh{} TO GET Index based on some row condition}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}151}]:} [0, 5]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{n}{cross\PYZus{}tab}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n}{cross\PYZus{}tab}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{cross\PYZus{}tab}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Team}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} DROPPING ROW}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}152}]:} Rank    Team  1  2  3  4  All
+          0     Devils  0  1  1  0    2
+          1      Kings  2  0  1  0    3
+          2     Riders  1  3  0  0    4
+          3     Royals  1  0  0  1    2
+          4      kings  0  0  0  1    1
+\end{Verbatim}
+            
+    \hypertarget{crosstab-ends}{%
+\subparagraph{\texorpdfstring{\emph{Crosstab
+Ends}}{Crosstab Ends}}\label{crosstab-ends}}
+
+    \hypertarget{pandas-ends}{%
+\subsection{\texorpdfstring{\texttt{Pandas\ Ends}}{Pandas Ends}}\label{pandas-ends}}
+
+     \#\# Hypothetical Testing \#\#\# Important library:
+\texttt{scipy.stats} reference *
+http://hamelg.blogspot.com/2015/11/python-for-data-analysis-part-24.html
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+          
+          \PY{n}{population\PYZus{}ages1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{150000}\PY{p}{)}
+          \PY{n}{population\PYZus{}ages2} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{100000}\PY{p}{)}
+          \PY{n}{population\PYZus{}ages} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{population\PYZus{}ages1}\PY{p}{,} \PY{n}{population\PYZus{}ages2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{minnesota\PYZus{}ages1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n}{minnesota\PYZus{}ages2} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{minnesota\PYZus{}ages} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{minnesota\PYZus{}ages1}\PY{p}{,} \PY{n}{minnesota\PYZus{}ages2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(} \PY{n}{population\PYZus{}ages}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(} \PY{n}{minnesota\PYZus{}ages}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+43.000112
+39.26
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{population\PYZus{}ages}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}192}]:} numpy.ndarray
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}1samp}\PY{p}{(}\PY{n}{a}\PY{o}{=} \PY{n}{minnesota\PYZus{}ages}\PY{p}{,}               \PY{c+c1}{\PYZsh{} Sample data}
+                           \PY{n}{popmean}\PY{o}{=} \PY{n}{population\PYZus{}ages}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Pop mean}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}158}]:} Ttest\_1sampResult(statistic=-2.5742714883655027, pvalue=0.013118685425061678)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.574271}\PY{p}{,}\PY{n}{df}\PY{o}{=}\PY{l+m+mi}{49}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} as it is two tailed test}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}160}]:} 0.013118701690109116
+\end{Verbatim}
+            
+    \begin{verbatim}
+*If the t-statistic lies outside the quantiles of the t-distribution corresponding to our confidence level and degrees of freedom, we reject the null hypothesis. We can check the quantiles with stats.t.ppf():
+
+*We can calculate the chances of seeing a result as extreme as the one we observed (known as the p-value) by passing the t-statistic in as the quantile to the stats.t.cdf() function:
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{n}{q}\PY{o}{=}\PY{l+m+mf}{0.025}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Quantile to check}
+                      \PY{n}{df}\PY{o}{=}\PY{l+m+mi}{49}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Degrees of freedom}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{n}{q}\PY{o}{=}\PY{l+m+mf}{0.975}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Quantile to check}
+                      \PY{n}{df}\PY{o}{=}\PY{l+m+mi}{49}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Degrees of freedom}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{as p\PYZhy{}value is less than confidence level i.e. 0.05) we reject null hypothesis :p\PYZhy{}value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{2.5742}\PY{p}{,}      \PY{c+c1}{\PYZsh{} T\PYZhy{}test statistic}
+                         \PY{n}{df}\PY{o}{=} \PY{l+m+mi}{49}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2} \PY{p}{)}  \PY{c+c1}{\PYZsh{} Mupltiply by two for two tailed test*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-2.0095752344892093
+2.009575234489209
+as p-value is less than confidence level i.e. 0.05) we reject null hypothesis :p-value 0.013121066545690117
+
+    \end{Verbatim}
+
+    *Question: aplpha=.05, h0=35 h1!=35
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{n}{commute\PYZus{}time}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{37}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{43}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{23}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{46}\PY{p}{,}\PY{l+m+mi}{52}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{24}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{,}\PY{l+m+mi}{42}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{33}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{24}\PY{p}{,}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{commute\PYZus{}time}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}1samp}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{commute\PYZus{}time}\PY{p}{,}\PY{n}{popmean}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Fail to reject null hypothesis as p\PYZhy{}value is \PYZgt{} 0.05\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.7233}\PY{p}{,}\PY{n}{df}\PY{o}{=}\PY{l+m+mi}{31}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+32
+Ttest\_1sampResult(statistic=-1.7233018724723084, pvalue=0.09479631478752118)
+-----Fail to reject null hypothesis as p-value is > 0.05----
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}193}]:} 0.09479665768152477
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{n}{sigma} \PY{o}{=} \PY{n}{minnesota\PYZus{}ages}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Sample stdev/sample size}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{sigma}\PY{p}{)}
+          \PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{interval}\PY{p}{(}\PY{l+m+mf}{0.95}\PY{p}{,}                        \PY{c+c1}{\PYZsh{} Confidence level}
+                           \PY{n}{df} \PY{o}{=} \PY{l+m+mi}{49}\PY{p}{,}                     \PY{c+c1}{\PYZsh{} Degrees of freedom}
+                           \PY{n}{loc} \PY{o}{=} \PY{n}{minnesota\PYZus{}ages}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} Sample mean}
+                           \PY{n}{scale}\PY{o}{=} \PY{n}{sigma}\PY{p}{)}                \PY{c+c1}{\PYZsh{} Standard dev estimate}
+          
+          \PY{c+c1}{\PYZsh{}REFERENCE https://www.google.com/search?client=firefox\PYZhy{}b\PYZhy{}ab\PYZam{}ei=rF2GW5DyDZX9rQGm1IHQCw\PYZam{}q=t\PYZhy{}test+how+to+calculate+interval\PYZam{}oq=t\PYZhy{}test+how+to+calculate+interval\PYZam{}gs\PYZus{}l=psy\PYZhy{}ab.3..0i22i30k1l2.4968143.4973453.0.4973697.32.18.0.0.0.0.692.1823.0j1j4j5\PYZhy{}1.6.0....0...1.1.64.psy\PYZhy{}ab..26.6.1821...0j0i67k1.0.hCMVgAd8d9I\PYZsh{}kpvalbx=1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.4382795277692022
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}194}]:} (36.369669080722176, 42.15033091927782)
+\end{Verbatim}
+            
+    \hypertarget{two-sample-t-test-stats.ttest_ind-independent}{%
+\paragraph{Two sample T-Test ````stats.ttest\_ind()
+--\textgreater{}Independent}\label{two-sample-t-test-stats.ttest_ind-independent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}
+          \PY{n}{wisconsin\PYZus{}ages1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{33}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n}{wisconsin\PYZus{}ages2} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{wisconsin\PYZus{}ages} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{wisconsin\PYZus{}ages1}\PY{p}{,} \PY{n}{wisconsin\PYZus{}ages2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(} \PY{n}{wisconsin\PYZus{}ages}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+42.8
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{n}{a}\PY{o}{=} \PY{n}{minnesota\PYZus{}ages}\PY{p}{,}
+                          \PY{n}{b}\PY{o}{=} \PY{n}{wisconsin\PYZus{}ages}\PY{p}{,}
+                          \PY{n}{equal\PYZus{}var}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}    \PY{c+c1}{\PYZsh{} Assume samples have equal variance?}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}172}]:} Ttest\_indResult(statistic=-1.7083870793286842, pvalue=0.09073104343957748)
+\end{Verbatim}
+            
+    \hypertarget{two-sample-t-test-paired}{%
+\paragraph{Two sample T-Test Paired}\label{two-sample-t-test-paired}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{)}
+          
+          \PY{n}{before}\PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+          
+          \PY{n}{after} \PY{o}{=} \PY{n}{before} \PY{o}{+} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.25}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+          
+          \PY{n}{weight\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weight\PYZus{}before}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{before}\PY{p}{,}
+                                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weight\PYZus{}after}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{after}\PY{p}{,}
+                                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weight\PYZus{}change}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{after}\PY{o}{\PYZhy{}}\PY{n}{before}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{n}{weight\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}             \PY{c+c1}{\PYZsh{} Check a summary of the data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}174}]:}        weight\_after  weight\_before  weight\_change
+          count    100.000000     100.000000     100.000000
+          mean     249.115171     250.345546      -1.230375
+          std       28.422183      28.132539       4.783696
+          min      165.913930     170.400443     -11.495286
+          25\%      229.148236     230.421042      -4.046211
+          50\%      251.134089     250.830805      -1.413463
+          75\%      268.927258     270.637145       1.738673
+          max      316.720357     314.700233       9.759282
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}rel}\PY{p}{(}\PY{n}{a} \PY{o}{=} \PY{n}{before}\PY{p}{,}
+                          \PY{n}{b} \PY{o}{=} \PY{n}{after}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}175}]:} Ttest\_relResult(statistic=2.5720175998568284, pvalue=0.011596444318439857)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}1samp}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{commute\PYZus{}time}\PY{p}{,}\PY{n}{popmean}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{)}\PY{p}{)}
+          \PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.7233018724723084}\PY{p}{,}\PY{n}{df}\PY{o}{=}\PY{l+m+mi}{31}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{}cumulative distribution function x=statistic and df=degree of freedom N\PYZhy{}1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ttest\_1sampResult(statistic=-1.7233018724723084, pvalue=0.09479631478752118)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}185}]:} 0.09479631478752118
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{n}{sigma}\PY{o}{=}\PY{n}{commute\PYZus{}time}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}
+          \PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{interval}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{95}\PY{p}{,}
+                          \PY{n}{df}\PY{o}{=}\PY{l+m+mi}{31}\PY{p}{,}
+                          \PY{n}{scale}\PY{o}{=}\PY{n}{sigma}\PY{p}{,}
+                          \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}198}]:} (30.158580295277904, 39.8414197047221)
+\end{Verbatim}
+            
+    \hypertarget{hypothetical-testing-ends}{%
+\paragraph{\texorpdfstring{\emph{\texttt{Hypothetical\ Testing\ Ends}}}{Hypothetical Testing Ends}}\label{hypothetical-testing-ends}}
+
+     \#\# Exploratory Data Analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Points}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{50}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}252}]:} 0.25    699.25
+          0.50    772.00
+          0.75    806.00
+          1.00    876.00
+          Name: Points, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Points}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}251}]:} count     12.000000
+          mean     765.583333
+          std       67.849376
+          min      673.000000
+          25\%      699.250000
+          50\%      772.000000
+          75\%      806.000000
+          max      876.000000
+          Name: Points, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}254}]:}     Points  Rank    Team  Year  Points Scaled
+          0      876     1  Riders  2014      92.350068
+          1      789     2  Riders  2015      29.983446
+          2      863     2  Devils  2014      77.482564
+          3      673     3  Devils  2015    -148.379616
+          4      741     3   Kings  2014     -62.043234
+          5      812     4   kings  2015      65.348535
+          6      756     1   Kings  2016      70.710678
+          7      788     1   Kings  2017      70.710678
+          8      694     2  Riders  2016     -70.710678
+          9      701     4  Royals  2014    -107.789398
+          10     804     1  Royals  2015      53.047635
+          11     690     2  Riders  2017     -70.710678
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}255}]:} \PY{n}{popularity}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./EDA\PYZhy{}getting\PYZam{}cleaningdata/popularity.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}270}]:} \PY{n}{popularity}\PY{o}{.}\PY{n}{shares}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} max      843300.000000}
+          \PY{c+c1}{\PYZsh{}popularity.shares.quantile([.78]) \PYZsh{}0.78    3100.0}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{popularity}\PY{o}{.}\PY{n}{shares}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} beetween 70\PYZhy{}80\PYZpc{} the mean lay}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.1     708.0
+0.7    2300.0
+0.8    3400.0
+Name: shares, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:} \PY{n}{popularity}\PY{p}{[}\PY{n}{popularity}\PY{o}{.}\PY{n}{shares}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{10800}\PY{p}{]}\PY{o}{.}\PY{n}{shares}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}finding mean of the shares after removing outliers}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}280}]:} count    37663.000000
+          mean      2074.334387
+          std       1871.814139
+          min          1.000000
+          25\%        927.000000
+          50\%       1400.000000
+          75\%       2400.000000
+          max      10800.000000
+          Name: shares, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}286}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{popularity}\PY{p}{[}\PY{n}{popularity}\PY{o}{.}\PY{n}{shares}\PY{o}{\PYZgt{}}\PY{l+m+mi}{10800}\PY{p}{]}\PY{o}{.}\PY{n}{shares}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{popularity}\PY{o}{.}\PY{n}{shares}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}286}]:} 5.0
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
